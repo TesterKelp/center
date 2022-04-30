@@ -1,0 +1,20 @@
+.mod { border:1px solid #dadada }
+.mod .hd { height:28px; line-height:29px; padding:0 10px; text-align:right; overflow:hidden }
+.mod .hd { padding:0; border-bottom:1px solid #ccc }
+.mod .hd .more { display:inline-block; height:20px; color:#999; line-height:20px; font-size:12px; font-family:tahoma; vertical-align:top }
+.mod .hd h3 { padding-left:10px; border-left:3px solid #369; color:#333; height:20px; font:18px/19px "微软雅黑" }
+.mod .hd h3 { float:left; font-size:14px }
+.mod .hd h3 { padding-left:10px; border-left:3px solid #369; color:#333; height:20px; font:18px/19px "微软雅黑" }
+.mod .bd { zoom:1 }
+#today_news { padding:20px 20px 0; margin-bottom:15px }
+#today_news .hd { padding-bottom:0 }
+#today_news .ulist li { float:left; width:292px; padding-right:36px; text-align:right }
+#today_news .ulist .art-title { float:left; width:220px; font-size:14px; text-align:left; overflow:hidden }
+#today_news .ulist .art-author { font-size:12px; color:#aaa }
+ul, ol, li { list-style:none }
+.lbox .hd, .tbox .hd { border:0; padding-bottom:7px }
+/** a:link { text-decoration:none; color:#133db6 } 
+a:hover { text-decoration:underline } 
+a:visited { text-decoration:none }**/
+.ulist li { height:26px; line-height:26px; padding-left:8px; background-image:url(images/dot.png); background-repeat:no-repeat; background-position:left 10px; font-size:14px; overflow:hidden }
+.ulist li i { font-family:Arial; font-style:normal; padding-left:10px; font-size:13px; color:#999 }

@@ -1,0 +1,222 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task 
+	classpath:/springframework.org/schema/task/spring-task-3.1.xsd">
+
+
+
+	<!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"> -->
+	<description>Shiro安全配置</description>
+
+
+
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO" />
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="globalSessionTimeout" value="36000000"></property>
+		<property name="sessionDAO" ref="sessionDAO" />
+		<property name="sessionIdCookie" ref="simpleCookie"/>
+	</bean>
+<!-- https://www.cnblogs.com/hafiz/p/7247005.html -->
+ <bean id="simpleCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+    <constructor-arg name="name" value="shiro.sesssion"/>
+    <property name="path" value="/"/>
+ </bean>
+
+
+
+	<bean id="shiroRealm" class="com.testsystem.admin.shiro.ShiroRealm" />
+	<!-- Shiro的主要业务层对象基于web的应用程序 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="rememberMeManager" ref="rememberMeManager" />
+		<property name="realm" ref="shiroRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+		<property name="sessionManager" ref="sessionManager" />
+
+	</bean>
+	<!-- Shiro Filter -->
+	<!-- <bean id="myCaptchaFilter" class="com.tianyu.jty.system.utils.FormAuthenticationCaptchaFilter"/> -->
+	<!-- Shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/loginPage.do" />
+		<property name="successUrl" value="/sys/login" />
+		<property name="filterChainDefinitions">
+			<value>
+			  
+ 
+			   <!--起名模块-->
+				/module/name/** = anon
+			   <!--  该权限为微信模块  --> 
+				/name/**        = anon      
+			   <!-- 老文章系统-->
+				/wz/** = anon
+				 <!--/module/share/** = anon-->
+			   <!-- 接口-->
+			 	/api/**           = anon        <!-- 接口api -->
+				<!-- 通用 -->
+				/layer/**           = anon      <!-- layer 资源权限 -->
+			    /test/**           = anon        <!-- 站点静态资源地址 -->
+			    /pic/**            = anon        <!-- 上传图片 -->
+			    /ueditor/**        = anon        <!-- ueditor富文本编辑 -->
+
+				/module/usercenter/register.jsp  = anon   <!-- 注册页面 -->
+				/module/usercenter/Register.do   = anon   <!-- 发起注册请求 -->
+				/module/usercenter/up.do         = anon   <!-- 注册上传图片 -->
+				/module/usercenter/testindex.do  = anon   <!-- 发起登录请求  -->
+				/module/usercenter/userlogin.do  = anon   <!-- 登录请求接口  -->
+				/loginPage.do                    = anon   <!-- 登录请求接口  -->
+			<!-- 博客模块 -->	
+				/blog/**  = anon
+				/blog/Blog.do  = anon
+				/blog/Content.do  = anon
+				/blog/Cate.do  = anon
+			    /blog/**/Search.do  = anon
+			<!-- 文章模块 -->	
+			    /template/**            = anon    <!--  文章模板资源  -->
+	<!-- 			/index.do               = anon     站点首页  -->
+			
+				/**/index.do            = anon    <!--  频道主页  -->
+				/**/**/list_**.do       = anon    <!--  频道列表  -->
+				/**/**/article_**.do    = anon    <!--  文章内容页  http://www.imooc.com/article/280990-->
+				/index.html             = anon    <!--  站点html首页  -->
+				/index/**               = anon    <!--  站点首页 静态资源 -->
+				/**/index.html          = anon    <!--  频道html主页  -->
+				/**/**/list_**.html     = anon    <!--  频道html列表  -->
+				/**/**/article_**.html  = anon    <!--  文章html内容页  -->
+				
+				/backstage/Html_Item_NameDetail.do  = anon   <!-- 名字测试结果页  -->
+				
+				/**/portal.do           = anon    <!--  频道首页  -->
+				/**/portal.html           = anon    <!--  频道首页  -->
+				
+				/**/topic.do             = anon    <!--  专题首页  -->
+				/**/topiccover_*.do      = anon    <!--  专题列表页  -->
+				
+				/**/topic.html             = anon    <!--  专题静态首页  -->
+				/**/topiccover_*.html      = anon    <!--  专题静态列表页  -->
+				
+				/**/tag_*.do               = anon    <!--  标签页  -->
+				/**/tag_*.html              = anon    <!--  标签静态页  -->
+				
+				/module/admin/IsLogin.do         = anon     <!--  判断是否登录  -->    
+				/module/admin/getUserName.do     = anon     <!--  获取用户名  -->
+                /module/admin/GetUserId.do       = anon     <!--  获取用户id  -->
+                
+                
+                
+                /static/**                       = anon      <!--  该权限可能已经废弃  -->  
+                /module/usercenter/face/**       = anon      <!--  该权限可能已经废弃  --> 
+				
+				
+				/name/**/**/it.do              = anon    <!--  标签页  -->
+				
+				/admin_login.do          = anon      <!-- =authc  -->
+				
+				
+				/module/share/SaveComment.do   = anon 
+				
+                /module/usercenter/personinfo.jsp    = user
+                /module/share/MyArticleManage.jsp     = user
+                /module/share/ArticleCreate.jsp  = user
+                /blog/BlogCate.jsp  = user
+                /blog/BlogSettingPage.do  = user
+                /module/share/MyTopic.do  = user
+                /topic/TopicCreate.do  = user
+                /nav/IndexSet.do  = user
+                /nav/NavManage.do  = user
+                
+                
+                
+                /  = anon  
+				/**/  = anon 
+				/**/**/  = anon 
+				/**/**/**/  = anon 
+				/default.do        = anon        <!-- 站点默认页面 -->
+
+				/** = rememberAuthFilter   
+
+				<!-- /*.do = user 分享模块不需要权限 博客模块不需要权限 -->
+
+
+
+			</value>
+		</property>
+	</bean>
+	<!-- 用户授权信息Cache, 采用EhCache -->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<!-- <property name="cacheManagerConfigFile" value="classpath:cache/ehcache-shiro.xml"/> -->
+	</bean>
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- AOP式方法级权限检查 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+
+
+
+	<!-- rememberMe Start -->
+	<!-- <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie"> 
+		<constructor-arg value="sid"/> <property name="httpOnly" value="true"/> <property 
+		name="maxAge" value="-1"/> </bean> <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie"> 
+		<constructor-arg value="rememberMe"/> <property name="httpOnly" value="true"/> 
+		<property name="maxAge" value="2592000"/> </bean> <bean id="rememberMeManager" 
+		class="org.apache.shiro.web.mgt.CookieRememberMeManager"> <property name="cipherKey" 
+		value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/> 
+		<property name="cookie" ref="rememberMeCookie"/> </bean> <bean id="securityManager" 
+		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"> <property name="rememberMeManager" 
+		ref="rememberMeManager"/> </bean> <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"> 
+		<property name="rememberMeParam" value="rememberMe"/> </bean> -->
+	<!-- rememberMe end -->
+
+	<!-- rememberMe2222 Start http://www.codeweblog.com/java-shiro%E9%85%8D%E7%BD%AE%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8A%9F%E8%83%BD-rememberme/ -->
+
+	<!-- remenberMe配置   https://blog.csdn.net/nsrainbow/article/details/36945267?utm_source=blogxgwz8-->
+	
+	<!-- 1.配置cookie的名字，存活时间以及其他-->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg   name="name"   value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<!-- 默认记住7天（单位：秒） -->
+		<property name="maxAge" value="604800" />
+	</bean>
+	<!-- rememberMe管理器    2.将cookie注入到cookieRememberManager中-->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<!--  <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />  -->
+		<property name="cipherKey" value="#{T(com.testsystem.admin.shiro.GenerateCipherKey).generateNewKey()}" />
+		
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+
+	<bean id="rememberAuthFilter" class="com.testsystem.admin.shiro.RememberAuthenticationFilter"></bean>
+
+
+
+
+	<!-- rememberMe 2222 end -->
+
+
+
+
+
+</beans>

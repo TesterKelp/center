@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H+ 测试平台 - 空白页</title>
+<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+<meta name="description"
+	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="../../test/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="../../test/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="../../test/css/animate.css" rel="stylesheet">
+<link href="../../test/css/style.css?v=4.1.0" rel="stylesheet">
+<link rel="stylesheet" href="css/demo.css" type="text/css">
+<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<script src="../../test/js/jquery.min.js?v=2.1.4"></script>
+<script src="js/jquery.ztree.core-3.5.js"></script>
+<SCRIPT type="text/javascript">
+		
+		var setting = {
+			data: {
+				key: {
+					title:"t"
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onRightClick: OnRightClick,
+				onClick: onClick
+			}
+		};
+
+		var log, className = "dark";
+		function beforeClick(treeId, treeNode, clickFlag) {
+			className = (className === "dark" ? "":"dark");
+			showLog("[ "+getTime()+" beforeClick ]&nbsp;&nbsp;" + treeNode.name );
+			return (treeNode.click != false);
+		}
+		function onClick(event, treeId, treeNode, clickFlag) {
+			showLog("[ "+getTime()+" onClick ]&nbsp;&nbsp;clickFlag = " + clickFlag + " (" + (clickFlag===1 ? "普通选中": (clickFlag===0 ? "<b>取消选中</b>" : "<b>追加选中</b>")) + ")");
+		}		
+		function showLog(str) {
+			if (!log) log = $("#log");
+			log.append("<li class='"+className+"'>"+str+"</li>");
+			if(log.children("li").length > 8) {
+				log.get(0).removeChild(log.children("li")[0]);
+			}
+		}
+		function getTime() {
+			var now= new Date(),
+			h=now.getHours(),
+			m=now.getMinutes(),
+			s=now.getSeconds();
+			return (h+":"+m+":"+s);
+		}	
+		var tree=[];
+				$.ajax({
+					type : "GET",
+					url : "ddeptlist.do",
+					async : false,
+					dataType : "json",
+					success : function(result) {
+					     var obj={id:0,pid:0,name:"0",open:false,sort:0,urll:"0",code:"0",icon:"0",type:0,state:0,desc:"0"} ;
+					     for(var i=0;i<(result.length);i++){
+					     obj.id   = eval('(' + result[i].permissionid + ')');
+					     obj.pid  = eval('(' + result[i].pid + ')');
+					     obj.name = result[i].name ;
+					     obj.urll = result[i].url ;
+					     obj.code = result[i].permissioncode ;
+					     obj.icon = result[i].icon ;
+					     obj.desc = result[i].descp ;
+					     obj.state = eval('(' + result[i].state + ')');
+					     obj.type = eval('(' + result[i].type + ')');
+					     obj.sort=eval('(' + result[i].sort + ')');
+					     obj2 ={id:obj.id,pId:obj.pid,name:obj.name,open:obj.open,sort:obj.sort,urll:obj.urll,code:obj.code,icon:obj.icon,type:obj.type,state:obj.state,desc:obj.desc};
+					     tree.push(obj2);
+					     }
+					}
+				});
+
+				
+			//  加载节点 信息 	
+				function onClick(event, treeId, treeNode, clickFlag) {
+					document.getElementById("permissionname").value=treeNode.name ;
+					document.getElementById("permissionsort").value=treeNode.sort ;
+					document.getElementById("permissionpid").value=treeNode.pId ;
+					document.getElementById("permissionid").value=treeNode.id ;
+					document.getElementById("permissionurl").value=treeNode.urll ;
+					
+					document.getElementById("permissioncode1").value=treeNode.code ;
+					document.getElementById("permissionicon").value=treeNode.icon ;
+					document.getElementById("permissiondesc").value=treeNode.desc ;
+					
+					if(treeNode.type==1){document.getElementById("permissiontype")[0].defaultSelected = true;}
+					if(treeNode.type==2){document.getElementById("permissiontype")[1].defaultSelected = true;}
+					if(treeNode.state==0){document.getElementById("permissionstate")[0].defaultSelected = true;}
+					if(treeNode.state==1){document.getElementById("permissionstate")[1].defaultSelected = true;}	
+					
+					layer.open({
+						        title:'编辑权限',
+						         skin:'layui-layer-molv',
+						        type: 1,
+						        area: ['550px', '600px'],
+						        shadeClose: true, //点击遮罩关闭
+						        content: $('#EditorPermission') ,
+						    });
+				}	
+				
+			
+				function OnRightClick(event, treeId, treeNode) {
+					if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
+						//document.getElementById("departmentid").value=treeNode.id ;
+						zTree.cancelSelectedNode();
+						showRMenu("root", event.clientX, event.clientY);
+					} else if (tree && !tree.noR) {
+						<!-- 
+						document.getElementById("pid").value=treeNode.id ;
+						document.getElementById("sort").value=treeNode.sort ;
+						-->
+						zTree.selectNode(tree);
+						showRMenu("node", event.clientX, event.clientY);
+					}
+				}
+
+				function showRMenu(type, x, y) {
+					$("#rMenu ul").show();
+					if (type=="root") {
+						document.getElementById("pid").value="0";
+						$("#m_del").hide();
+						
+						$("#m_unCheck").hide();
+					} else {
+						$("#m_del").show();
+				
+						$("#m_unCheck").show();
+					}
+					rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
+
+					$("body").bind("mousedown", onBodyMouseDown);
+				}
+				function hideRMenu() {
+					if (rMenu) rMenu.css({"visibility": "hidden"});
+					$("body").unbind("mousedown", onBodyMouseDown);
+				}
+				function onBodyMouseDown(event){
+					if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
+						rMenu.css({"visibility" : "hidden"});
+					}
+				}
+				var addCount = 1;
+				function addTreeNode() {
+					var newNode1 = { name:"增加" + (addCount++)};
+					var newNode = { name:"增加"};
+					newNode.name=  document.getElementById("DepartmentName").value ;
+					if (zTree.getSelectedNodes()[0]) {
+						newNode.checked = zTree.getSelectedNodes()[0].checked;
+						zTree.addNodes(zTree.getSelectedNodes()[0], newNode);
+					} else {
+						zTree.addNodes(null, newNode);
+					}
+				}
+				
+				
+				
+				
+				function addDept(){
+					hideRMenu();
+					  layer.open({
+					        title:'添加权限',
+					         skin:'layui-layer-molv',
+					        type: 1,
+					        area: ['550px', '500px'],
+					        shadeClose: true, //点击遮罩关闭
+					        content: $('#ShowCreateOperation') ,
+					    });
+				}
+				
+	//  删除 权限  
+	function DelPermission() {
+		var permissionid = document.getElementById("pid").value;
+		var url = "DelPermission.do";
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : {
+				permissionid : permissionid,
+			},
+			dataType : "text",
+			success : function(result) {
+				if(result=="ok"){
+					alert("删除成功！");
+					window.location.reload();
+				}
+				
+			}
+		});
+
+	}
+
+	function removeTreeNode() {
+		hideRMenu();
+		var nodes = zTree.getSelectedNodes();
+		if (nodes && nodes.length > 0) {
+			if (nodes[0].children && nodes[0].children.length > 0) {
+				var msg = "要删除的节点是父节点，如果删除将连同子节点一起删掉。\n\n请确认！";
+				if (confirm(msg) == true) {
+					zTree.removeNode(nodes[0]);
+				}
+			} else {
+				zTree.removeNode(nodes[0]);
+			}
+		}
+	}
+
+	$(document).ready(function() {
+		$.fn.zTree.init($("#treeDemo"), setting, tree);
+	});
+
+	function checkTreeNode(checked) {
+		var nodes = zTree.getSelectedNodes();
+		if (nodes && nodes.length > 0) {
+			zTree.checkNode(nodes[0], checked, true);
+		}
+		hideRMenu();
+	}
+	function resetTree() {
+		hideRMenu();
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	}
+
+	var zTree, rMenu;
+	$(document).ready(function() {
+		$.fn.zTree.init($("#treeDemo"), setting, tree);
+		zTree = $.fn.zTree.getZTreeObj("treeDemo");
+		rMenu = $("#rMenu");
+	});
+
+	function savePermission() {
+		var pid = document.getElementById("pid").value;
+		var name = document.getElementById("name").value;
+		var type = document.getElementById("type").value;
+		var sort = document.getElementById("psort").value;
+		var url = document.getElementById("url").value;
+		var permissioncode = document.getElementById("permissioncode").value;
+		var icon = document.getElementById("icon").value;
+		var state = document.getElementById("state").value;
+		var desc = document.getElementById("desc").value;
+		var url = "savePermission.do";
+		$.ajax({
+			type : "POST",
+			url : url,
+			//			async : false,
+			data : {
+				pid : pid,
+				name : name,
+				type : type,
+				sort : sort,
+				url : url,
+				permissioncode : permissioncode,
+				icon : icon,
+				state : state,
+				desc : desc
+			},
+			dataType : "text",
+			success : function(result) {
+				if(result=="ok"){
+					alert("添加成功！");
+					window.location.reload();
+				}
+			}
+
+		});
+
+	}
+	
+	
+	function updatePermission() {
+		
+		var permissionid = document.getElementById("permissionid").value ;
+		var pid = document.getElementById("permissionpid").value;
+		var name = document.getElementById("permissionname").value;
+		var type = document.getElementById("permissiontype").value;
+		var sort = document.getElementById("permissionsort").value;
+		var urll = document.getElementById("permissionurl").value;                                            
+		var permissioncode = document.getElementById("permissioncode1").value;
+		var icon = document.getElementById("permissionicon").value;
+		var state = document.getElementById("permissionstate").value;
+		var desc = document.getElementById("permissiondesc").value;
+		var url = "updatePermission.do";
+	
+		$.ajax({
+			type : "POST",
+			url : url,
+			//			async : false,			
+			data : {
+				permissionid:permissionid,
+				pid : pid,
+				name : name,
+				type : type,
+				sort : sort,
+				url : urll,
+				permissioncode : permissioncode,
+				icon : icon,
+				state : state,
+				desc : desc
+			},
+			dataType : "text",
+			success : function(result) {
+				if(result=="ok"){
+					alert("更新成功！");
+					window.location.reload();
+				}
+			}
+
+		});
+
+	}
+	
+	
+	
+	
+	
+	
+	
+</SCRIPT>
+
+
+
+
+<style type="text/css">
+div#rMenu {
+	position: absolute;
+	visibility: hidden;
+	top: 0;
+	background-color: #555;
+	text-align: left;
+	padding: 2px;
+}
+
+div#rMenu ul li {
+	margin: 1px 0;
+	padding: 0 5px;
+	cursor: pointer;
+	list-style: none outside none;
+	background-color: #DFDFDF;
+}
+</style>
+</head>
+
+<body class="gray-bg" >
+ 	<div class="wrapper wrapper-content" > 
+
+		<!--<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">-->
+
+					<div class="ibox-content" >
+					<table><tr>
+					<td><input class="form-control"  type="hidden"     id="pid"></td>
+					<td><input  class="form-control" type="hidden" id="sort"></td>
+					<td>
+					<!-- <button  class="btn btn-primary" type="hidden"   onclick='savesort()'>保存</button>-->
+					</td>
+					</tr></table>	
+					 	
+						<div class="zTreeDemoBackground left" style="min-height:800px">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+					</div>
+				</div>
+		<!--	</div>
+	 	</div>
+	</div> -->	
+
+
+
+	<div id="rMenu">
+		<ul>
+			<li id="test1" onclick="addDept();">添加权限</li>
+			<li id="m_del" onclick="DelPermission();">删除权限</li>
+		</ul>
+	</div>
+
+
+
+
+	<div id="ShowCreateOperation" style="display: none">
+		<div class="ibox-content">
+			<form class="form-horizontal" method="post">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限名称：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">类型：</label>
+					<div class="col-sm-5">
+						<select class="form-control" id="type">
+							<option value="1">菜单</option>
+							<option value="2">权限</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">URL：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="url">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限代码：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissioncode">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限排序：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="psort">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">状态：</label>
+					<div class="col-sm-5">
+						<select class="form-control" id="state">
+							<option value="1">启用</option>
+							<option value="0">草稿</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">icon：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="icon">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限说明：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="desc">
+					</div>
+				</div>
+
+				<div class="col-sm-1 col-sm-offset-2">
+					<button type="button" class="btn btn-primary"
+						onclick='savePermission()'>保存</button>
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+
+
+
+<div id="EditorPermission" style="display: none">
+		<div class="ibox-content">
+			<form class="form-horizontal" method="post">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限名称：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissionname">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">类型：</label>
+					<div class="col-sm-5">
+						<select class="form-control" id="permissiontype">
+							<option value="1">菜单</option>
+							<option value="2">权限</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">URL：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissionurl">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">id：</label>
+					<div class="col-sm-5">
+						<input type="text"   readonly="readonly"  class="form-control" id="permissionid">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">pid：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissionpid">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限代码：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissioncode1">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限排序：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissionsort">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">状态：</label>
+					<div class="col-sm-5">
+						<select class="form-control" id="permissionstate">
+							<option value="0">草稿</option>
+							<option value="1">启用</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">icon：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissionicon">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">权限说明：</label>
+					<div class="col-sm-5">
+						<input type="text" class="form-control" id="permissiondesc">
+					</div>
+				</div>
+				<div class="col-sm-1 col-sm-offset-2">
+					<button type="button" class="btn btn-primary"
+						onclick='updatePermission()'>修改</button>
+				</div>
+
+			</form>
+		</div>
+
+	</div>
+
+
+
+	<script src="../../test/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="../../layer/layer.js"></script>
+	<script src="../../test/js/content.js?v=1.0.0"></script>
+<script>
+function  savesort(){
+	var pid = document.getElementById("pid").value;
+	var sort = document.getElementById("sort").value;
+	var url = "updatesort.do";
+	$.ajax({
+		type : "POST",
+		url : url,
+		async : false,
+		data : {
+			pid : pid,
+			sort : sort,
+		},
+		dataType : "json",
+		success : function(result) {
+			alert(result);
+		}
+
+	});
+	
+	
+	
+}
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

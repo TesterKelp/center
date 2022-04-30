@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>身在江湖 </title>
+<link href="/test/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="/test/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+<link href="/test/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+<link href="/test/css/animate.css" rel="stylesheet">
+<link href="/test/css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content animated fadeInRight">
+
+		<!-- Panel Other -->
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>文章管理</h5>
+				<div class="ibox-tools"  >
+					<h5 ><a  style="color:#F00"  href="/module/share/ArticleCreate.html">【发布文章】 </a></h5>
+
+				</div>
+			</div>
+			<div class="ibox-content">
+				<div class="row row-lg">
+					<div class="col-sm-12">
+						<!-- Example Pagination -->
+						<div class="example-wrap">
+							<div class="example">
+								<table id="t1" class="table table-condensed" data-toggle="table"
+									data-query-params="queryParams" data-mobile-responsive="true"
+									 data-pagination="true"
+									data-icon-size="outline">
+
+								</table>
+
+
+
+							</div>
+						</div>
+						<!-- End Example Pagination -->
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		<!-- End Panel Other -->
+
+
+	</div>
+
+
+
+
+
+	<div id="ShowArticleType" style="display: none">
+		<div class="ibox-content">
+			<form class="form-horizontal" method="post">
+			
+				<div class="form-group">
+					<label class="col-sm-4 control-label">文章类型：</label>
+					<div class="col-sm-5">
+						<select class="form-control" id="articleType">
+							<option value="6">频道图文</option>
+							<option value="7">频道内容</option>
+							<option value="9">列表图文</option>
+							<option value="10">内容图文</option>
+						</select>
+					</div>
+				</div>
+					<div class="form-group">
+					<label class="col-sm-4 control-label"></label>
+					<input type="hidden" class="form-control"   id="articleid">
+					<div class="col-sm-5">
+					<div onclick="updateArticleType();" class="btn btn-primary">设置</div>
+					</div>
+					
+				</div>
+			</form>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" >
+function updateArticleType(){
+	
+	var articleid = document.getElementById("articleid").value ;
+	var se = document.getElementById("articleType").selectedIndex;
+	var articleType = document.getElementById("articleType").options[se].value;
+
+	$.ajax({
+		type : "GET",
+		url : "/article/updateArticleType.do",
+		data: {articleType:articleType,articleid :articleid},
+		async : false,
+		dataType : "text",
+		success : function(data) {
+		//	alert(data);
+			if(data==1){alert('设置成功');}
+		}
+	});	
+    
+    
+  
+    
+
+}
+</script>
+
+
+
+<script type="text/javascript" >
+function ShowArticleType(id){
+    	layer.open({
+    		title : '设置文章类型',
+    		skin : 'layui-layer-molv',
+    		type : 1,
+    		area : [ '600px', '360px' ],
+    		shadeClose : true, // 点击遮罩关闭
+    		content : $('#ShowArticleType'),
+    	});
+    	document.getElementById("articleid").value =id ;
+}  
+</script>
+
+
+
+
+	<!-- 全局js -->
+	<script src="/test/js/jquery.min.js?v=2.1.4"></script>
+	<script src="/test/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="/layer/layer.js"></script>
+	<!-- 自定义js -->
+	<script src="/test/js/content.js?v=1.0.0"></script>
+	<script src="/test/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+	<script src="/test/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+	<script src="/test/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="js/article.js"></script>
+	<script src="/test/js/demo/bootstrap-table-demo.js"></script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>kelp测试平台</title>
+<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+<meta name="description"
+	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="../../test/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="../../test/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+<link href="../../test/css/animate.css" rel="stylesheet">
+<link href="../../test/css/style.css?v=4.1.0" rel="stylesheet">
+
+
+<link rel="stylesheet" href="css/demo.css" type="text/css">
+<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<script src="../../test/js/jquery.min.js?v=2.1.4"></script>
+<script src="js/jquery.ztree.core-3.5.js"></script>
+<script src="js/jquery.ztree.excheck-3.5.js"></script>
+
+
+
+
+<SCRIPT type="text/javascript">
+		
+
+		var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+	        callback: {
+	            onCheck: zTreeOnCheck,
+	        }
+		};
+
+		var zNodes =[
+			{ id:1, pId:0, name:"随意勾选 1", open:true},
+			{ id:11, pId:1, name:"随意勾选 1-1", open:true},
+			{ id:111, pId:11, name:"随意勾选 1-1-1"},
+			{ id:112, pId:11, name:"随意勾选 1-1-2"},
+			{ id:12, pId:1, name:"随意勾选 1-2", open:true},
+			{ id:121, pId:12, name:"随意勾选 1-2-1"},
+			{ id:122, pId:12, name:"随意勾选 1-2-2"},
+			{ id:2, pId:0, name:"随意勾选 2", checked:true, open:true},
+			{ id:21, pId:2, name:"随意勾选 2-1"},
+			{ id:22, pId:2, name:"随意勾选 2-2", open:true},
+			{ id:221, pId:22, name:"随意勾选 2-2-1", checked:true},
+			{ id:222, pId:22, name:"随意勾选 2-2-2"},
+			{ id:23, pId:2, name:"随意勾选 2-3"}
+		];
+		
+		
+		var tree=[];
+		$.ajax({
+			type : "GET",
+			url : "ddeptlist.do",
+			async : false,
+			dataType : "json",
+			success : function(result) {
+			     var obj={id:0,pId:0,name:"0",open:false} ;
+			     for(var i=0;i<(result.length);i++){
+
+			     obj.id   = eval('(' + result[i].permissionid + ')');
+			     obj.pId  = eval('(' + result[i].pid + ')');
+			     obj.name = result[i].name ;
+			     obj2 ={id:obj.id,pId:obj.pId,name:obj.name,open:obj.open};
+			     tree.push(obj2);
+			     }
+
+			 
+			}
+		});
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		var code;
+		
+		function setCheck() {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			type =  { "Y" : "", "N" : "" };
+			zTree.setting.check.chkboxType = type;
+			showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
+		}
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, tree);
+			var zTree = jQuery.fn.zTree.init(jQuery('#excluded-files'), setting, null);
+			setCheck();
+			$("#py").bind("change", setCheck);
+			$("#sy").bind("change", setCheck);
+			$("#pn").bind("change", setCheck);
+			$("#sn").bind("change", setCheck);
+		});
+
+		
+		
+		function zTreeOnCheck(event, treeId, treeNode) {
+			
+		    var abc =  document.getElementById("PermissionId").value
+		    document.getElementById("PermissionId").value =abc + treeNode.id ;
+		};
+		
+		
+		function OnRightClick(event, treeId, treeNode) {
+			if (!treeNode && event.target.tagName.toLowerCase() != "button" && $(event.target).parents("a").length == 0) {
+				//document.getElementById("departmentid").value=treeNode.id ;
+			
+				zTree.cancelSelectedNode();
+				showRMenu("root", event.clientX, event.clientY);
+			} else if (tree && !tree.noR) {
+				document.getElementById("DepartmentId").value=treeNode.id ;
+				
+				zTree.selectNode(tree);
+				showRMenu("node", event.clientX, event.clientY);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</SCRIPT>
+
+
+
+
+<style type="text/css">
+div#rMenu {
+	position: absolute;
+	visibility: hidden;
+	top: 0;
+	background-color: #555;
+	text-align: left;
+	padding: 2px;
+}
+
+div#rMenu ul li {
+	margin: 1px 0;
+	padding: 0 5px;
+	cursor: pointer;
+	list-style: none outside none;
+	background-color: #DFDFDF;
+}
+</style>
+</head>
+
+<body class="gray-bg">
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>菜单管理</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="zTreeDemoBackground left">
+							<ul id="treeDemo" class="ztree"></ul>
+						</div>
+
+						<button type="button" class="btn btn-primary"
+							onclick='saveDepartment()'>保存</button>
+						<input type="text" class="form-control" id="PermissionId">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	<div id="rMenu">
+		<ul>
+			<li id="test1" onclick="addDept();">添加部门</li>
+			<li id="m_del" onclick="removeTreeNode();">删除部门</li>
+			<li id="m_check" onclick="checkTreeNode(true);">部门排序</li>
+		</ul>
+	</div>
+
+
+
+
+
+
+
+	<!-- 全局js -->
+
+	<script src="../../test/js/bootstrap.min.js?v=3.3.6"></script>
+	<script src="../../layer/layer.js"></script>
+
+	<!-- 自定义js -->
+	<script src="../../test/js/content.js?v=1.0.0"></script>
+
+	<script type="text/javascript"
+		src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<!--统计代码，可删除-->
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<title>“运行代码”的文本域代码</title>
+<script language="JavaScript" type="text/JavaScript">
+//运行文本域代码
+function runEx(cod1) {
+cod=document.all(cod1)
+var code=cod.value;
+if (code!=""){
+var newwin=window.open('','',''); //打开一个窗口并赋给变量newwin。
+newwin.opener = null // 防止代码对论谈页面修改
+newwin.document.write(code); //向这个打开的窗口中写入代码code，这样就实现了运行代码功能。
+newwin.document.close();
+}
+}
+</script>
+<!-- 以下CSS代码与实例无关 -->
+<style>
+#n{margin:10px auto; width:920px; border:1px solid #CCC;font-size:12px; line-height:30px;}
+#n a{ padding:0 4px; color:#333}
+</style>
+</head>
+<body>
+
+<!-- 以上HTML代码与实例无关 -->
+<p>
+<textarea name="textarea" id="rn01"   rows="60" style="width:100%;">
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>你好呀！</title>
+</head>
+<body>
+<h1>欢迎来到这里！</h1>
+</body>
+</html>
+</textarea>
+<br><INPUT onclick="runEx('rn01')" type="button" value="运行代码" style="cursor:hand"> 点击”运行代码“试试
+</p>
+
+</body>
+</html>

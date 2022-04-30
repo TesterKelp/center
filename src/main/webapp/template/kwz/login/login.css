@@ -1,0 +1,47 @@
+
+h3,
+form,
+input,
+p {
+	margin:0;
+	padding:0;
+}
+
+fieldset,
+img {
+	border:0;
+}
+
+img{display: block;}
+
+/*---------------------------------閫氱敤鏍峰紡------------------------------------*/
+.w12{width: 12px;}
+.w36{width: 36px;}
+.w46{width: 46px;}
+.h1{width:247px; height: 0px; border-bottom: 1px dashed #ccdee5; margin:18px 0 18px 10px; }
+.h70{height: 70px;}
+.no_mr{margin-right: 0 !important;}
+
+.ldL_con{height: 110px; background:#f5f8fb; background: url(/template/wz/login/images/cc.png)  no-repeat }
+.ldL_con_in{width: 300px; height: 261px; overflow: hidden; margin: 0 auto; background: url(/template/wz/login/images/0.png)  no-repeat left top;}
+.ld_form{width: 290px; height: 260px; overflow: hidden; padding-left: 30px; margin:1px 0 0 2px; }
+.form_title{font-size: 18px; font-family: Microsoft Yahei; color: #336599; margin: 26px 0 15px 0;}
+.ld_form p{margin-bottom:13px ;}
+.ld_form input{width: 233px; height: 37px; line-height: 37px; padding:6px 5px 6px 30px; border: 1px solid #97abc5; background: url(/template/wz/login/images/icon01.png) no-repeat 10px 8px; }
+.ld_form .ld_pass{background-position: 13px -47px;}
+.ld_login{padding:10px 29px 0 0; overflow: hidden;}
+.ld_login_in{width: 260px; height: 31px; background:url(/template/wz/login/images/ld_login.jpg); line-height: 31px; font-size: 14px; color: #fff; text-align: center; cursor: pointer; margin-bottom: 10px; }
+.ld_login a{float: right; color: #7F7F7F;}
+  
+  
+  input[type=checkbox]{
+　　display: inline-block;
+　　vertical-align: middle;
+　　margin-bottom: 30px;
+   height: 17px;
+   width: 23px;
+   line-height: 17px;
+}
+  
+
+

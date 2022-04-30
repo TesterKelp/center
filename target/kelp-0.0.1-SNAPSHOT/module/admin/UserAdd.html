@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>kelp测试平台</title>
+<meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+<meta name="description"
+	content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+<link rel="shortcut icon" href="favicon.ico">
+<link href="../../test/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link href="../../test/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+<link href="../../test/css/animate.css" rel="stylesheet">
+<link href="../../test/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+
+	<div class="wrapper wrapper-content">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-title">
+						<h5>添加用户</h5>
+					</div>
+					<div class="ibox-content">
+						<div class="row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-9">
+
+								<form role="form" method="get" class="form-horizontal">
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">用户名：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="username">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">密码：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="password1">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">确认密码：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="password">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 control-label">头像：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="useravatar" value="/module/usercenter/face/1.jpg">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">中文名：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="useremail">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">英文名：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="realname">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">邮箱：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="englishname">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">电话：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="telephone">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="col-sm-2 control-label">QQ：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="qq">
+										</div>
+									</div>
+
+									<!--  
+                            <div class="form-group">
+                                <label class="col-sm-1 control-label">权限分组：</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id=" ">
+                                </div>
+                            </div>
+                            
+                                                        <div class="form-group">
+                                <label class="col-sm-1 control-label">部门：</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id=" ">
+                                </div>
+                            </div>
+                            -->
+									<div class="form-group">
+										<label class="col-sm-2 control-label">职位：</label>
+										<div class="col-sm-6">
+											<input type="text" class="form-control" id="jobname">
+										</div>
+									</div>
+
+
+									<div id="test1" class="btn btn-primary" onclick="adduser()">保存信息</div>
+
+								</form>
+							</div>
+							<div class="col-sm-2"></div>
+
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 全局js -->
+	<script src="../../test/js/jquery.min.js?v=2.1.4"></script>
+	<script src="../../test/js/bootstrap.min.js?v=3.3.6"></script>
+
+	<!-- 自定义js -->
+	<script src="../../test/js/content.js?v=1.0.0"></script>
+
+	<script type="text/javascript"
+		src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<!--统计代码，可删除-->
+	<script>
+
+function  adduser(){
+	
+	var username=	document.getElementById("username").value ;
+	var  password=	document.getElementById("password").value ;
+	var  useravatar=	document.getElementById("useravatar").value ;
+	var  useremail=	document.getElementById("useremail").value ;
+	var  realname=	document.getElementById("realname").value ;
+	var  englishname=	document.getElementById("englishname").value ;
+	var  telephone=	document.getElementById("telephone").value ;
+	var  qq=	document.getElementById("qq").value ;
+	var  jobname=	document.getElementById("jobname").value ;
+
+	
+	$.ajax({
+		type : "POST",
+		url : "/module/admin/BackRegister.do",
+	
+	data : {
+				username : username,
+				password : password,
+				useravatar : useravatar,
+				useremail : useremail,
+				realname:realname,
+				englishname:englishname,
+				telephone:telephone,
+				qq:qq,
+				jobname:jobname
+			},
+			async : false,
+			dataType : "text",
+			success : function(data) {
+				alert(data);
+			}
+		});
+
+	}
+</script>
+
+
+
+
+</body>
+
+</html>

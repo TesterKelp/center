@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="451" started-at="2020-11-15T10:40:00Z" finished-at="2020-11-15T10:40:01Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="451" started-at="2020-11-15T10:40:00Z" finished-at="2020-11-15T10:40:01Z">
+      <class name="com.testsystem.eg.R">
+        <test-method status="PASS" signature="sdf()[pri:0, instance:com.testsystem.eg.R@31b191c4]" name="sdf" duration-ms="399" started-at="2020-11-15T18:40:00Z" finished-at="2020-11-15T18:40:01Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sdf -->
+      </class> <!-- com.testsystem.eg.R -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

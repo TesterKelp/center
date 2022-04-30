@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <sitemapindex>
+     <sitemap>
+       <loc>/map/sitemap.xml</loc>
+       <lastmod>2018-11-28</lastmod>
+     </sitemap>
+     <sitemap>
+       <loc>/map/sitemap_1.xml</loc>
+       <lastmod>2018-11-28</lastmod>
+     </sitemap>
+     <sitemap>
+       <loc>/map/sitemap_2.xml</loc>
+       <lastmod>2018-11-28</lastmod>
+     </sitemap>
+     <sitemap>
+       <loc>/map/sitemap_3.xml</loc>
+       <lastmod>2018-11-28</lastmod>
+     </sitemap>
+
+   </sitemapindex>

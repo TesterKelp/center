@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_2.dtd">
+<taglib>     <!-- 自定义库标签的根 -->
+	<tlibversion>1.2</tlibversion>     <!-- 版本号 -->
+	<jspversion>1.1</jspversion>       <!-- JSP版本号 -->
+	<shortname>displaytags</shortname>        <!-- 标签名称 -->
+	<uri>/displaytags</uri>   <!-- 外界导入标签时，认识的名字，很重要。 -->
+	<tag>
+		<name>Menu</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.article.tag.Menu</tagclass>          <!-- 对应的类 -->
+	</tag>
+
+	<tag>
+		<name>BlogLink</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.article.tag.BlogLink</tagclass>          <!-- 对应的类 -->
+	</tag>
+<tag>
+		<name>HtmlMenu</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.article.tag.HtmlMenu</tagclass>          <!-- 对应的类 -->
+	</tag>
+	<tag>
+		<name>DefectMenu</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.defect.tag.DefectMenu</tagclass>          <!-- 对应的类 -->
+	</tag>
+
+	<tag>
+		<name>LoginInfo</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.article.tag.LoginInfo</tagclass>          <!-- 对应的类 -->
+	</tag>
+
+	<tag>
+		<name>UserSelect</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.admin.tag.UserSelect</tagclass>          <!-- 对应的类 -->
+	</tag>
+	
+	<tag>
+		<name>ProjectName</name>                            <!-- 标签名称 -->
+		<tagclass>com.testsystem.defect.tag.ProjectName</tagclass>          <!-- 对应的类 -->
+	</tag>
+
+
+
+
+
+
+<tag>  
+ <name>Menus</name>                           
+ <tagclass>com.testsystem.admin.tag.MenuTags</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>typeid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag> 
+
+
+
+
+
+
+<tag>  
+ <name>DefectTags</name>                           
+ <tagclass>com.testsystem.defect.tag.DefectTags</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>bugid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag> 
+
+<tag>  
+ <name>TaskTags</name>                           
+ <tagclass>com.testsystem.defect.tag.TaskTags</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>taskid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag> 
+
+
+<tag>  
+ <name>CaseTags</name>                           
+ <tagclass>com.testsystem.defect.tag.CaseTags</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>caseid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag>
+
+	<!-- 标签名称 <tag> <name>ProjectModuleSelect</name> <tagclass>com.monitorsys.autocenter.tag.ProjectModuleSelect</tagclass> 
+		<bodycontent>empty</bodycontent> <attribute> <name>projectid</name> <required>true</required> 
+		<rtexprvalue>true</rtexprvalue> </attribute> </tag> -->
+
+
+
+
+<!-- ================================================com.testsystem.systemtest.tag  Start=================================     -->
+<tag>  
+ <name>ProjectSelect</name>                            <!-- 标签名称 -->  
+ <tagclass>com.testsystem.systemtest.tag.ProjectSelect</tagclass>          <!-- 对应的类 -->  
+</tag>  
+
+  <tag>  
+ <name>ModuleSelect</name>                            <!-- 标签名称 -->  
+ <tagclass>com.testsystem.systemtest.tag.ModuleSelect</tagclass>          <!-- 对应的类 -->  
+</tag>  
+
+ <tag>  
+ <name>OperationSelect</name>                             
+ <tagclass>com.testsystem.systemtest.tag.OperationSelect</tagclass>          
+</tag>  
+
+ <tag>  
+ <name>WidgetSelect</name>                             
+ <tagclass>com.testsystem.systemtest.tag.WidgetSelect</tagclass>          
+</tag>  
+
+ 
+<tag>  
+ <name>ProjectSelectDefault</name>                           
+ <tagclass>com.testsystem.systemtest.tag.ProjectSelectDefault</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>projectid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag> 
+
+<tag>
+
+	<name>ModuleSelectDefault</name>
+	<tagclass>com.testsystem.systemtest.tag.ModuleSelectDefault</tagclass>
+	<bodycontent>empty</bodycontent>
+	<attribute>
+		<name>moduleid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+	</attribute>
+	<attribute>
+		<name>projectid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+	</attribute>
+</tag> 
+
+
+
+<tag>
+
+	<name>PageSelectDefault</name>
+	<tagclass>com.testsystem.systemtest.tag.PageSelectDefault</tagclass>
+	<bodycontent>empty</bodycontent>
+	<attribute>
+		<name>pageid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+	</attribute>
+	<attribute>
+		<name>projectid</name>
+		<required>true</required>
+		<rtexprvalue>true</rtexprvalue>
+	</attribute>
+</tag>
+
+  <tag>  
+ <name>PageSelect</name>                            <!-- 标签名称 -->  
+ <tagclass>com.testsystem.systemtest.tag.PageSelect</tagclass>          <!-- 对应的类 -->  
+</tag> 
+
+
+   
+<tag>  
+ <name>OperationSelectDefault</name>                           
+ <tagclass>com.testsystem.systemtest.tag.OperationSelectDefault</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>operationcode</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag>  
+
+<tag>  
+ <name>WidgetSelectDefault</name>                           
+ <tagclass>com.testsystem.systemtest.tag.WidgetSelectDefault</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>widgetid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag> 
+
+
+
+
+
+<!-- ================================================itemMenu  start=================================     -->
+
+<!-- 门户页porta,item菜单 -->
+<tag>  
+ <name>PortalMenu</name>                           
+ <tagclass>com.testsystem.backstage.tag.PortalMenu</tagclass>          
+</tag> 
+
+
+<tag>  
+ <name>ItemMenu</name>                           
+ <tagclass>com.testsystem.backstage.tag.ItemMenu</tagclass>          
+<bodycontent>empty</bodycontent>
+<attribute>
+<name>itemid</name>
+<required>true</required>
+<rtexprvalue>true</rtexprvalue>
+</attribute>
+</tag>
+
+
+
+
+<!-- ================================================litemMenu  End=================================     -->
+
+</taglib> 

@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<!-- ####################################################################################################### -->
+<div class="wrapper col5">
+  <div id="footer">
+
+<!-- 
+    <div id="newsletter">
+    <h2> 1</h2> 
+      <div><p>周一至周五：09:00 - 18:00</p> <p >4008-370-770 </p></div>
+      <div> <p> <img src="/module/name/images/weixin.jpg" height="60px" width="60px"></p></div>
+      
+       
+    </div>
+    <div class="footbox">
+       <h2>Lacus interdum</h2>  
+      <ul>
+        <li><a href="#">名字大全</a></li>
+        <li><a href="#">女孩常用字</a></li>
+        <li><a href="#">男孩常用字</a></li>
+        <li><a href="#">姓名百科</a></li>
+        <li class="last"><a href="#">姓氏起源</a></li>
+      </ul>
+    </div>
+    <div class="footbox">
+    <h2>大全</h2> 
+      <ul>
+        <li><a href="#">宝宝星座</a></li>
+        <li><a href="#">英文名</a></li>
+        <li><a href="#">诗词起名</a></li>
+        <li><a href="#">五格起名</a></li>
+        <li class="last"><a href="#">生辰八字起名</a></li>
+      </ul>
+    </div>
+    <div class="footbox">
+    <h2>姓名</h2>  
+      <ul>
+        <li><a href="#">万年历</a></li>
+        <li><a href="#">出生命运</a></li>
+        <li><a href="#">十二生肖</a></li>
+        <li><a href="#">宝宝小名</a></li>
+        <li class="last"><a href="#">康熙字典取名</a></li>
+      </ul>
+    </div>
+     -->
+     <p class="fl_left">Copyright ?2007-2021 网 All rights reserved京ICP证1040 号 | 京ICP备 7号-3</p> <br class="clear" />
+    <br class="clear" />
+  </div>
+</div>
+<!-- ####################################################################################################### 
+<div class="wrapper col6">
+    <div id="copyright">
+   
+
+  </div>
+</div>
+
+-->
+
+

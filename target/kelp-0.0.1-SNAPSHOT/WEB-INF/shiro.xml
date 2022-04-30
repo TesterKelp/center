@@ -1,0 +1,143 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/task 
+	classpath:/springframework.org/schema/task/spring-task-3.1.xsd">
+
+
+
+	<!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"> -->
+	<description>Shiro安全配置</description>
+
+
+
+	<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO" />
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO" />
+	</bean>
+
+	<bean id="shiroRealm" class="com.testsystem.admin.shiro.ShiroRealm" />
+	<!-- Shiro的主要业务层对象基于web的应用程序 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="rememberMeManager" ref="rememberMeManager" />
+		<property name="realm" ref="shiroRealm" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+		<property name="sessionManager" ref="sessionManager" />
+
+	</bean>
+	<!-- Shiro Filter -->
+	<!-- <bean id="myCaptchaFilter" class="com.tianyu.jty.system.utils.FormAuthenticationCaptchaFilter"/> -->
+	<!-- Shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/module/usercenter/login.jsp" />
+		<property name="successUrl" value="/sys/login" />
+		<property name="filterChainDefinitions">
+			<value>
+				/static/** = anon
+				<!-- /sys/login = authc /sys/login/** = user /rest/**=authcBasic /index.jsp 
+					= user -->
+				/name/** = anon
+				/module/name/** = anon
+			    /api/** = anon
+				/test/** = anon
+				/module/share/** = anon
+				/wz/** = anon
+				/ueditor/**  = anon
+				/blog/**  = anon
+				/blog/Blog.do  = anon
+				/default.do  = anon
+				/ = anon
+				/pic/** = anon
+				/blog/Content.do  = anon
+				/blog/Cate.do  = anon
+				/module/usercenter/face/** = anon
+				/module/admin/getUserName.do  = anon
+               /module/usercenter/register.jsp  = anon
+				/module/usercenter/testindex.do = anon
+				/module/usercenter/Register.do = anon
+				/module/usercenter/up.do  = anon
+				/module/admin/IsLogin.do  = anon
+				/** = rememberAuthFilter
+
+				<!-- /*.do = user 分享模块不需要权限 博客模块不需要权限 -->
+
+
+
+			</value>
+		</property>
+	</bean>
+	<!-- 用户授权信息Cache, 采用EhCache -->
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<!-- <property name="cacheManagerConfigFile" value="classpath:cache/ehcache-shiro.xml"/> -->
+	</bean>
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	<!-- AOP式方法级权限检查 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+
+
+
+	<!-- rememberMe Start -->
+	<!-- <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie"> 
+		<constructor-arg value="sid"/> <property name="httpOnly" value="true"/> <property 
+		name="maxAge" value="-1"/> </bean> <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie"> 
+		<constructor-arg value="rememberMe"/> <property name="httpOnly" value="true"/> 
+		<property name="maxAge" value="2592000"/> </bean> <bean id="rememberMeManager" 
+		class="org.apache.shiro.web.mgt.CookieRememberMeManager"> <property name="cipherKey" 
+		value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/> 
+		<property name="cookie" ref="rememberMeCookie"/> </bean> <bean id="securityManager" 
+		class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"> <property name="rememberMeManager" 
+		ref="rememberMeManager"/> </bean> <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"> 
+		<property name="rememberMeParam" value="rememberMe"/> </bean> -->
+	<!-- rememberMe end -->
+
+	<!-- rememberMe2222 Start http://www.codeweblog.com/java-shiro%E9%85%8D%E7%BD%AE%E8%AE%B0%E4%BD%8F%E5%AF%86%E7%A0%81%E5%8A%9F%E8%83%BD-rememberme/ -->
+
+	<!-- remenberMe配置 -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true" />
+		<!-- 默认记住7天（单位：秒） -->
+		<property name="maxAge" value="604800" />
+	</bean>
+	<!-- rememberMe管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cipherKey"
+			value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+
+	<bean id="rememberAuthFilter" class="com.testsystem.admin.shiro.RememberAuthenticationFilter"></bean>
+
+
+
+
+	<!-- rememberMe 2222 end -->
+
+
+
+
+
+</beans>

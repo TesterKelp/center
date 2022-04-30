@@ -1,0 +1,187 @@
+{
+  "data": [{
+    "id": 1,
+    "name": "孟氏宗祠",
+    "pid": null,
+    "childrens": [
+      {
+        "id": 2,
+        "name": "孟凡录",
+        "pid": 1,
+        "childrens": [
+          {
+            "id": 5,
+            "name": "孟祥富",
+            "pid": 2,
+            "childrens": [
+              {
+                "id": 10,
+                "name": "息识别",
+                "pid": 5,
+                "childrens": [
+                ]
+              },
+              {
+                "id": 11,
+                "name": "册时间",
+                "pid": 5,
+                "childrens": [
+                ]
+              },
+              {
+                "id": 12,
+                "name": "注册本",
+                "pid": 5,
+                "childrens": [
+                ]
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "name": "孟祥贵",
+            "pid": 2,
+            "childrens": [
+              {
+                "id": 13,
+                "name": "孟令言",
+                "pid": 6,
+                "childrens": [
+                ]
+              },
+                {
+                "id": 13,
+                "name": "孟令号",
+                "pid": 6,
+                "childrens": [
+                ]
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "name": "孟祥芬",
+            "pid": 2,
+            "childrens": [
+             
+                {
+                "id": 123,
+                "name": "孟令号",
+                "pid": 6,
+                "childrens": [
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "孟凡春",
+        "pid": 1,
+        "childrens": [
+          {
+            "id": 7,
+            "name": "孟祥红",
+            "pid": 3,
+            "childrens": [
+              {
+                "id": 14,
+                "name": "王婉宁",
+                "pid": 7,
+                "childrens": [
+                ]
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "name": "孟祥芳",
+            "pid": 3,
+            "childrens": [
+              {
+                "id": 15,
+                "name": "黄公证",
+                "pid": 8,
+                "childrens": [
+                ]
+              },
+               {
+                "id": 115,
+                "name": "黄新宇",
+                "pid": 8,
+                "childrens": [
+                ]
+              }
+              
+            ]
+          },
+           {
+            "id": 88,
+            "name": "孟祥彬",
+            "pid": 3,
+            "childrens": [
+              {
+                "id": 15,
+                "name": "孟令涵",
+                "pid": 8,
+                "childrens": [
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "孟凡军",
+        "pid": 1,
+        "childrens": [
+          {
+            "id": 9,
+            "name": "孟祥波",
+            "pid": 4,
+            "childrens": [
+              {
+                "id": 16,
+                "name": "于庆",
+                "pid": 9,
+                "childrens": [
+                ]
+              }
+            ]
+          },
+           {
+            "id": 99,
+            "name": "孟祥福",
+            "pid": 4,
+            "childrens": [
+              {
+                "id": 16,
+                "name": "处罚息",
+                "pid": 9,
+                "childrens": [
+                ]
+              }
+            ]
+          },
+           {
+            "id": 999,
+            "name": "孟祥龙",
+            "pid": 4,
+            "childrens": [
+              {
+                "id": 16,
+                "name": "孟令超",
+                "pid": 9,
+                "childrens": [
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+}
