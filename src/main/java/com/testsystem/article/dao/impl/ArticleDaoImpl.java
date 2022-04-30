@@ -120,6 +120,7 @@ public class ArticleDaoImpl implements ArticleDao {
 	public PageList ArticleList(int pageNo,int pagesize1) {
 		// TODO Auto-generated method stub
 		
+		
 		List lst = null ;
 		String sql = "select count(*) "
 				+ "from article_content a,admin_user b,article_cate c ,article_item d  "
