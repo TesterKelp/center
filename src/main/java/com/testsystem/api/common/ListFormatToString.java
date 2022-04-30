@@ -9,6 +9,7 @@ public class ListFormatToString {
 
 	public static String ListFormatString(List list, String status, String message) {
 		String rs;
+		
 		if (list == null) {
 			rs = "{\"status\":\"" + status + "\",\"message\":\"" + message + "\",\"data\":\"\"}";
 		} else {
